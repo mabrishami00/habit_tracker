@@ -4,10 +4,10 @@ from django.db import models
 class Habit(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    start_date = models.DateField()
+    start_date = models.DateField(auto_now=True)
     end_date = models.DateField()
-    target = models.IntegerField()
-    times_completed = models.IntegerField(default=0)
+    target = models.PositiveBigIntegerField()
+    times_completed = models.PositiveBigIntegerField(default=0)
     done = models.BooleanField(default=False)
     user = models.ForeignKey("User", on_delete=models.CASCADE)
 

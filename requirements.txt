@@ -5,3 +5,4 @@ PyJWT==2.10.1
 python-decouple==3.8
 pytz==2024.2
 sqlparse==0.5.3
+psycopg2==2.8

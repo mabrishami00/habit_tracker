@@ -1,0 +1,32 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment variables file
+.env
+
+# Django specific files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Node modules
+node_modules/
+
+# Static and media files
+staticfiles/
+media/
+
+# Docker specific files
+Dockerfile
+docker-compose.yml
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp

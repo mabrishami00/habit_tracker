@@ -23,7 +23,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - 80:8000
+      - 81:8000
     depends_on:
       - postgres_primary
       # - postgres_replica
@@ -43,7 +43,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - 80:8000
+      - 82:8000
     depends_on:
       - postgres_primary
       # - postgres_replica
@@ -63,7 +63,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - 80:8000
+      - 83:8000
     depends_on:
       - postgres_primary
       # - postgres_replica
@@ -77,7 +77,7 @@ services:
     env_file:
       - .env
     ports:
-      - 5432:5432
+      - 5434:5432
 
   postgres_replica:
     container_name: postgres_replica
@@ -87,7 +87,7 @@ services:
     env_file:
       - .env
     ports:
-      - 5432:5432
+      - 5433:5432
 
   redis:
     container_name: redis

@@ -1,4 +1,14 @@
 services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/ssl
+
   habit_tracker1:
     container_name: habit_tracker1
     build: .

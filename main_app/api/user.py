@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 
-from seriailzers.user import UserSerializer
-from core.authentication import JWTAuthentication
+from main_app.seriailzers.user import UserSerializer
+from main_app.core.authentication import JWTAuthentication
 
 
 class UserRegisterView(CreateAPIView):

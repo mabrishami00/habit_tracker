@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Habit(models.Model):
@@ -9,7 +12,7 @@ class Habit(models.Model):
     target = models.PositiveBigIntegerField()
     times_completed = models.PositiveBigIntegerField(default=0)
     done = models.BooleanField(default=False)
-    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

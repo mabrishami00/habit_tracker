@@ -52,7 +52,8 @@ class JWTAuthentication(BaseAuthentication):
         self._invalidate_tokens_inside_cache(user_id, jti)
         return True
 
-    def get_active_sessions_of_user(self, access_token):
+    def get_active_sessions_of_user(self, request):
+        access_token = self._get_access_token_from_header(request)
         user_id_and_jti = self._get_user_id_and_jti_from_token(access_token)
         if not user_id_and_jti:
             return None

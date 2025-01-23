@@ -8,8 +8,8 @@ RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-RUN mkdir /app/staticfiles
-RUN mkdir /app/mediafiles
+RUN mkdir -p /app/staticfiles
+RUN mkdir -p /app/mediafiles
 RUN chmod +x /app/entrypoint.sh
 RUN chown -R app:app /app
 USER app

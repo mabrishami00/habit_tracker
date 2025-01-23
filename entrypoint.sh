@@ -4,19 +4,18 @@ set -e
 set -x
 
 
-if [ "$DATABASE" = "postgres" ]
-then
-    echo "Waiting for postgres..."
 
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-      sleep 0.1
-    done
+echo "Waiting for postgres..."
 
-    echo "PostgreSQL started"
-fi
+until pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT; do
+    sleep 2
+done
 
-if [ "$1" = "web" ]; then
+echo "PostgreSQL started"
+
+if [ "$1" = "primary" ]; then
     python3 manage.py migrate --noinput
     python3 manage.py collectstatic --noinput
 fi
+shift
 exec "$@"

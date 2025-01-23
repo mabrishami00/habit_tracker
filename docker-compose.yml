@@ -8,6 +8,8 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/ssl
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
     networks:
       - main
 
@@ -24,6 +26,8 @@ services:
     # it's for debug
     volumes:
       - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
     ports:
       - 81:8000
     env_file:
@@ -125,6 +129,8 @@ volumes:
   postgres_pri_data:
   postgres_rep_data:
   redis_data:
+  static_volume:
+  media_volume:
 
 networks:
   main:

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from main_app.models.habit import Habit
 
 
-class HabitSerializer(serializers.Serializer):
+class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = "__all__"

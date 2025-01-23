@@ -35,3 +35,17 @@ class UserGetNewTokens(APIView):
                 status=status.HTTP_200_OK,
             )
         return Response({"result": False}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UserLogoutView(APIView):
+    def post(self, request):
+        logout_response = JWTAuthentication().logout(request)
+        if logout_response:
+            return Response({"result": True}, status=status.HTTP_200_OK)
+        return Response({"result": False}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UserActiveSessionsView(APIView):
+    def post(self, request):
+        user_active_sessions = JWTAuthentication().get_active_sessions_of_user(request)
+        return Response({"result": user_active_sessions}, status=status.HTTP_200_OK)

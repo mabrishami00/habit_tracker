@@ -33,10 +33,10 @@ class JWTAuthentication(BaseAuthentication):
         )
 
     def login(self, request):
-        username = request.data.get("username")
+        email = request.data.get("email")
         password = request.data.get("password")
         try:
-            if user_id := self._user_is_valid(username, password):
+            if user_id := self._user_is_valid(email, password):
                 return self._generate_access_and_refresh_tokens_and_save_to_cache(
                     request, user_id
                 )
@@ -101,22 +101,26 @@ class JWTAuthentication(BaseAuthentication):
         self._save_tokens_to_cache(request, user_id, jti)
         return access_token, refresh_token
 
-    def _user_is_valid(self, username, password):
-        if user := User.objects.get(username=username).check_password(password):
-            return user.id
-        return None
+    def _user_is_valid(self, email, password):
+        try:
+            if user := User.objects.get(email=email):
+                if user.check_password(password):
+                    return user.id
+        except Exception:
+            pass
 
     def _generate_payload(self, user_id):
         now = datetime.now(tz=pytz.timezone("Asia/Tehran"))
         jti = self._generate_jti()
-        base_payload = {"user_id": user_id, "iat": now, "jti": jti}
-        access_payload = base_payload.update(
+        access_payload = {"user_id": user_id, "iat": now, "jti": jti}
+        refresh_payload = {"user_id": user_id, "iat": now, "jti": jti}
+        access_payload.update(
             {
                 "exp": now + timedelta(seconds=settings.ACCESS_TOKEN_EXPIRE_TIME),
                 "token_type": "access",
             }
         )
-        refresh_payload = base_payload.update(
+        refresh_payload.update(
             {
                 "exp": now + timedelta(seconds=settings.REFRESH_TOKEN_EXPIRE_TIME),
                 "token_type": "refresh",

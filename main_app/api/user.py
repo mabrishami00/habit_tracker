@@ -14,9 +14,16 @@ class UserRegisterView(CreateAPIView):
 
 class UserLoginView(APIView):
     def post(self, request):
-        username, password = request.data.get("username"), request.data.get("password")
-        if authenticate(username=username, password=password):
-            return Response({"result": True}, status=status.HTTP_200_OK)
+        if access_and_refresh_token := JWTAuthentication().login(request):
+            access_token, refresh_token = access_and_refresh_token
+            return Response(
+                {
+                    "result": True,
+                    "access_token": access_token,
+                    "refresh_token": refresh_token,
+                },
+                status=status.HTTP_200_OK,
+            )
         return Response({"result": False}, status=status.HTTP_401_UNAUTHORIZED)
 
 
